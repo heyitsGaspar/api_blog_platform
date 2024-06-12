@@ -5,12 +5,14 @@ const authRoutes = require("./router/auth");
 const userRoutes = require("./router/users");
 const postRoutes = require("./router/post");
 const commentRoutes = require("./router/comments");
+const cors = require("cors");
 const crypto = require("crypto");
 
 
 require("dotenv").config();
 
 const app = express();
+app.use(cors());
 
 const port = process.env.PORT || 3000;
 
