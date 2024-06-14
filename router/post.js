@@ -4,7 +4,7 @@ const authMiddleware = require('../middlewares/authMiddleware');
 
 const router = express.Router();
 
-router.post('/', authMiddleware, createPost);
+router.post('/', authMiddleware, upload.single('image'), createPost);
 router.put('/:postId', authMiddleware, updatePost);
 router.delete('/:postId', authMiddleware, deletePost);
 router.get('/:postId', getPost);
