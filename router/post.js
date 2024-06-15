@@ -1,16 +1,13 @@
 const express = require('express');
-const multer = require('multer');
+const { upload } = require('../libs/multer');
 const { createPost, updatePost, deletePost, getPost, getAllPosts } = require('../controllers/postController');
 const authMiddleware = require('../middlewares/authMiddleware');
+const uploadMiddleware = require('../middlewares/uploadMiddleware');
 
 const router = express.Router();
 
-// Configuración de multer para limitar el tamaño de archivo a 10MB
-const upload = multer({
-  limits: { fileSize: 10 * 1024 * 1024 }, // 10MB en bytes
-});
 
-router.post('/', authMiddleware, upload.single('image'), createPost);
+router.post('/', [authMiddleware,upload.single('image'), uploadMiddleware],  createPost); 
 router.put('/:postId', authMiddleware, updatePost);
 router.delete('/:postId', authMiddleware, deletePost);
 router.get('/:postId', getPost);

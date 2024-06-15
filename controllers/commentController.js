@@ -33,3 +33,20 @@ exports.deleteComment = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
+
+
+exports.getCommentsByPostId = async (req, res) => {
+  const { postId } = req.params;
+
+  try {
+    const post = await Post.findByPk(postId, { include: ['Comments'] });
+    if (!post) {
+      return res.status(404).json({ error: 'Post not found' });
+    }
+
+    const comments = await Comment.findAll({ where: { post_id: postId }, include: ['User'] });
+    res.status(200).json(comments);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};

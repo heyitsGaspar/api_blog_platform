@@ -18,7 +18,7 @@ const port = process.env.PORT || 3000;
 
 
 // Configura body-parser
-app.use(bodyParser.json());
+app.use(express.json());
 
 // Verificar si JWT_SECRET está definido, si no, generar uno nuevo
 if (!process.env.JWT_SECRET) {

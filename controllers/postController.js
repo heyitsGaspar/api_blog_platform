@@ -1,10 +1,13 @@
 const Post = require('../models/post');
 
 exports.createPost = async (req, res) => {
-  const { title, content, image_url } = req.body;
-
+  const file = req.file;
+  console.log(file);
+  const { title, content } = req.body;
+  const imageUrl = req.imageUrl;
+  
   try {
-    const post = await Post.create({ user_id: req.userId, title, content, image_url });
+    const post = await Post.create({ user_id: req.userId, title, content, image_url: imageUrl });
     res.status(201).json(post);
   } catch (error) {
     res.status(400).json({ error: error.message });
